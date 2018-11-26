@@ -6,6 +6,8 @@ window.onload = function(){
     var totTXT = document.createTextNode("Get Price");
     var update = document.createTextNode("Update");
     var cust = document.createTextNode("Get Customers");
+    var staffBTN = document.createElement("BUTTON");
+    staffBTN.appendChild(document.createTextNode("Check Staff Availability"));
     var inputOne = document.createElement("input");
     var plist = document.getElementById("price");
     var orders = document.getElementById("orders");
@@ -136,7 +138,6 @@ window.onload = function(){
                     var data = document.createElement("TR");
                     var value = document.createElement("TD");
                     value.appendChild(document.createTextNode(res[j].name));
-                    console.log(res[j].name);
                     var snum = document.createElement("TD");
                     snum.appendChild(document.createTextNode(res[j].streetNum));
                     var sname = document.createElement("TD");
