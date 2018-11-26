@@ -1,0 +1,42 @@
+body {
+    background-color: black;
+    background-image: url("pizzaplace.jpg");
+    
+}
+
+h1 {
+    color: black;
+    margin-left: 100px;
+    font-family: Helvetica;
+    font-weight: 80;
+    height: 500px;
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 400%;
+    
+}
+p {
+    color: black;
+    margin-left: 100px;
+    font-family: Helvetica;
+    font-weight: 80;
+    height: -200px;
+    display: flex;
+
+
+
+}
+
+div {
+    color: black;
+    margin-left: 100px;
+    font-family: Helvetica;
+    font-weight: 80;
+    height: -200px;
+
+
+
+}
