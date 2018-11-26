@@ -6,6 +6,7 @@ window.onload = function(){
     var totTXT = document.createTextNode("Get Price");
     var update = document.createTextNode("Update");
     var cust = document.createTextNode("Get Customers");
+    var staffAvail = document.getElementById("staffAvail");
     var staffBTN = document.createElement("BUTTON");
     staffBTN.appendChild(document.createTextNode("Check Staff Availability"));
     var inputOne = document.createElement("input");
@@ -25,9 +26,11 @@ window.onload = function(){
     totBTN.appendChild(totTXT);
     upBTN.appendChild(update);
     getCust.appendChild(cust);
+    staffAvail.appendChild(staffBTN);
     totBTN.addEventListener("click", getTotal);
     upBTN.addEventListener("click", updateStatus);
     getCust.addEventListener("click", getCustomers);
+    staffBTN.addEventListener("click", checkStaff);
     total.appendChild(inputOne);
     total.appendChild(totBTN);
     getem.appendChild(getCust);
@@ -149,6 +152,49 @@ window.onload = function(){
                 }
             }
             
+        }
+
+        http.send(null);
+    }
+
+    function checkStaff(){
+        var http = new XMLHttpRequest(); //set up the request
+        url = 'http://localhost:8080/api/staff';
+  
+        http.open('GET', url, true);  
+
+        http.onreadystatechange = function() {//Call a function when the state changes.
+            if(http.readyState == 4 && http.status == 200) {
+                if(staffAvail.childNodes[0] != null){
+                    while (staffAvail.firstChild) {
+                        staffAvail.removeChild(staffAvail.firstChild);
+                    }
+                }
+
+                var table = document.createElement("TABLE");
+                var attributes = document.createElement("TR");
+                var name = document.createElement("TD");
+                var n = document.createTextNode("Staff Id");
+                var streetNum = document.createElement("TD");
+                var sn = document.createTextNode("Orders being handled");
+                streetNum.appendChild(sn);
+                name.appendChild(n);
+                attributes.appendChild(name);
+                attributes.appendChild(streetNum);
+                table.appendChild(attributes);
+                customers.appendChild(table);
+                var res = JSON.parse(http.response);
+                for(var j = 0; j < res.length; j++){
+                    var data = document.createElement("TR");
+                    var value = document.createElement("TD");
+                    value.appendChild(document.createTextNode(res[j].staffID));
+                    var snum = document.createElement("TD");
+                    snum.appendChild(document.createTextNode(res[j].orders));
+                    data.appendChild(value);
+                    data.appendChild(snum);
+                    table.appendChild(data);
+                }
+            }
         }
 
         http.send(null);
