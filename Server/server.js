@@ -51,6 +51,16 @@ var con = mysql.createConnection({
       })
   })
 
+  router.route('/staff')
+
+  .get(function(req, res){
+      con.query("SELECT staffID, COUNT(*) as orders FROM pizza.order GROUP BY staffID", function(err, result){
+        if(err) throw err;
+
+        res.json(result);
+      });
+  })
+
   router.route('/:order_id')
 
   .get(function(req, res) {
