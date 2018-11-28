@@ -1,4 +1,5 @@
 window.onload = function(){
+    var plist = document.getElementById("price");
     var button = document.createElement("BUTTON");
     button.appendChild(document.createTextNode("Choose Order by ID"))
     var input = document.createElement("input");
