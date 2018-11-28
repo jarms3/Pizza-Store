@@ -14,8 +14,8 @@ var router = express.Router();
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "",
-    database: "pizza"
+    password: "penis",
+    database: "juicerSchema"
   });
   
   con.connect(function(err) {
@@ -37,7 +37,7 @@ var con = mysql.createConnection({
   });
 
   router.get('/', function(req, res) {
-    con.query("SELECT * FROM pizza.order", function(err, result){
+    con.query("SELECT * FROM juicerSchema.order", function(err, result){
         if (err) throw err;
         res.json(result);
     });   
@@ -54,7 +54,7 @@ var con = mysql.createConnection({
   router.route('/staff')
 
   .get(function(req, res){
-      con.query("SELECT staffID, COUNT(*) as orders FROM pizza.order GROUP BY staffID", function(err, result){
+      con.query("SELECT staffID, COUNT(*) as orders FROM juicerSchema.order GROUP BY staffID", function(err, result){
         if(err) throw err;
 
         res.json(result);
@@ -76,20 +76,24 @@ var con = mysql.createConnection({
   })
 
   .post(function(req, res){
-      con.query("UPDATE pizza.pizzasinorder SET status = " + req.body.status + " WHERE orderID = " + req.params.order_id, function(err, result){
+      con.query("UPDATE juicerSchema.pizzasinorder SET status = " + req.body.status + " WHERE orderID = " + req.params.order_id, function(err, result){
           if(err) throw err;
       });
 
-      con.query("UPDATE pizza.order SET status = " + req.body.status + " WHERE orderID = " + req.params.order_id, function(err, result){
+      con.query("UPDATE juicerSchema.order SET status = " + req.body.status + " WHERE orderID = " + req.params.order_id, function(err, result){
         if(err) throw err;
         console.log(req.body.status);
         if(req.body.status == "'DONE'"){
-            con.query("DELETE pizza.order, pizza.pizzasinorder FROM pizza.order inner join pizza.pizzasinorder on pizzasinorder.orderID = order.orderID WHERE order.status = 'DONE' AND pizzasinorder.status = 'DONE'", function(error, resp){
+            console.log("wut");
+            con.query("DELETE juicerSchema.order, juicerSchema.pizzasinorder FROM juicerSchema.order inner join juicerSchema.pizzasinorder on pizzasinorder.orderID = order.orderID WHERE order.status = 'DONE' AND pizzasinorder.status = 'DONE'", function(error, resp){
                 if(error) throw error;
-                res.json(resp);
+                console.log("hey");
+                //res.send("Order Completed");
             });
         }
       });
+
+      res.send("Updated!")
 
   })
 
