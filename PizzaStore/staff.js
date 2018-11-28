@@ -3,7 +3,14 @@ window.onload = function(){
     var http = new XMLHttpRequest(); //set up the request
         url = 'http://localhost:8080/api/staff';
   
-        http.open('GET', url, true);  
+        http.open('GET', url, true);
+    var button = document.createElement("BUTTON");
+    button.appendChild(document.createTextNode("Add Staff Member with Name"))
+    button.addEventListener("click", addStaff);
+    var input = document.createElement("input");
+    input.type = "text";
+    staffAvail.appendChild(input);
+    staffAvail.appendChild(button);
 
         http.onreadystatechange = function() {//Call a function when the state changes.
             if(http.readyState == 4 && http.status == 200) {
@@ -21,6 +28,7 @@ window.onload = function(){
                 var staffName = document.createTextNode("Staff Name");
                 var streetNum = document.createElement("TD");
                 var sn = document.createTextNode("Orders being handled");
+               
                 streetNum.appendChild(sn);
                 name.appendChild(n);
                 nameYeet.appendChild(staffName);
@@ -42,9 +50,26 @@ window.onload = function(){
                     data.appendChild(yeet);
                     data.appendChild(snum);
                     table.appendChild(data);
+                    
                 }
             }
         }
+    function addStaff(){
+        var http = new XMLHttpRequest();
+        url = 'http://localhost:8080/api/' + input.value;
+        var params = 'name=' + "'" + input.value + "'";
+        
+        http.open('POST', url, true);
+        
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        
+        http.onreadystatechange = function() {//Call a function when the state changes.
+            if(http.readyState == 4 && http.status == 200) {
+                console.log(http.responseText);
+            }
+        }
+        http.send(params);
+    }
 
         http.send(null);
     }
