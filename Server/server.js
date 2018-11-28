@@ -54,7 +54,7 @@ var con = mysql.createConnection({
   router.route('/staff')
 
   .get(function(req, res){
-      con.query("SELECT staffID, COUNT(*) as orders FROM juicerSchema.order GROUP BY staffID", function(err, result){
+      con.query("SELECT  order.staffID, staff.name, COUNT(*) as orders FROM juicerSchema.order inner join juicerSchema.staff on order.staffID = staff.staffID GROUP BY order.staffID", function(err, result){
         if(err) throw err;
 
         res.json(result);
