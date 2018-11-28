@@ -53,13 +53,25 @@ var con = mysql.createConnection({
 
   router.route('/staff')
 
+<<<<<<< HEAD
+    .get(function(req, res){
+      con.query("SELECT  order.staffID, staff.name, COUNT(*) as orders FROM juicerSchema.order inner join juicerSchema.staff on order.staffID = staff.staffID GROUP BY order.staffID", function(err, result){
+=======
   .get(function(req, res){
       con.query("SELECT  order.staffID, staff.name, COUNT(*) FROM juicerSchema.order inner join juicerSchema.staff on order.staffID = staff.staffID GROUP BY order.staffID", function(err, result){
+>>>>>>> 3f4024065f2f88e42204d32999b6054f4d4fed9c
         if(err) throw err;
 
         res.json(result);
       });
   })
+
+router.route('/staff/:name')
+    .post(function(req, res){
+      con.query("INSERT into juicerSchema.staff SET name = " + req.body.name + " WHERE orderID = " + req.params.order_id, function(err, result){
+                if(err) throw err;
+                });
+          })
 
   router.route('/:order_id')
 
