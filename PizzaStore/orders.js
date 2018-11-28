@@ -1,5 +1,7 @@
 window.onload = function(){
     var orders = document.getElementById("orders");
+    var yeet = document.getElementById("getfuckedjuice");
+    var ongod = document.createTextNode(storeNumber);
     setInterval(function get(){
         var http = new XMLHttpRequest(); //set up the request
         url = 'http://localhost:8080/api';
