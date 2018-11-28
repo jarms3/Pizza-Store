@@ -13,6 +13,7 @@ window.onload = function(){
     var plist = document.getElementById("price");
     var orders = document.getElementById("orders");
     var status = document.getElementById("status");
+    var large = document.getElementById("large");
     var customers = document.getElementById("customers");
     var getem = document.getElementById("getCust");
     var inputTwo = document.createElement("input");
