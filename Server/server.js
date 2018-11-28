@@ -83,16 +83,18 @@ var con = mysql.createConnection({
           if(err) throw err;
       });
 
-      con.query("UPDATE pizza.order SET status = " + req.body.status + " WHERE orderID = " + req.params.order_id, function(err, result){
+      con.query("UPDATE piza.order SET status = " + req.body.status + " WHERE orderID = " + req.params.order_id, function(err, result){
         if(err) throw err;
         console.log(req.body.status);
         if(req.body.status == "'DONE'"){
             con.query("DELETE pizza.order, pizza.pizzasinorder FROM pizza.order inner join pizza.pizzasinorder on pizzasinorder.orderID = order.orderID WHERE order.status = 'DONE' AND pizzasinorder.status = 'DONE'", function(error, resp){
                 if(error) throw error;
-                res.json(resp);
+                res.send("Order Completed");
             });
         }
       });
+
+      res.send("Updated!")
 
   })
 

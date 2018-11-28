@@ -66,6 +66,8 @@ window.onload = function(){
         http.send(null);
     }, 2000);
 
+    
+
     function getTotal(){
         var http = new XMLHttpRequest(); //set up the request
         url = 'http://localhost:8080/api/' + inputOne.value;

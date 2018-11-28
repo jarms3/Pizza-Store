@@ -3,25 +3,20 @@
     <link rel="stylesheet" type="text/css" href="mystyle.css">
     <title>SE 3309 Assignment 4</title>
     <meta charset="UTF-8">
-    <script type='text/javascript' src='storescript.js'></script>
+    <script type='text/javascript' src='temporaryscript.js'></script>
 </header>
 <h1>PALAZO DELLA PIZZA</h1>
 
-<nav>Active Orders: </nav>
-    <ul id='orders'></ul>
+<nav>
+        <button class = "button" type="button" onclick="orderPage()">ORDERS</button>
+        <button class = "button" type="button" onclick="staffPage()">STAFF</button>
+        <button class = "button" type="button" onclick="updateStatus()">UPDATE</button>
+        <button class = "button" type="button" onclick="orderTotal()">TOTALS</button>
 
-<nav>Large Orders: </nav>
-    <ul id='large'></ul>
 
-<nav>What would you like to do ?</nav>
+</nav>
 
-<nav id='total'>Get total price for order: </nav>
-    <ul id='price'></ul>
+<div id="store">What Store?</div>
+<input id="input" type="text" name="input"/>
+<button onclick="submit()">Submit</button>
 
-<nav id='status'>Update status of pizza:</nav>
-
-<nav id='getCust'>Customers to be delivered to: <br/></nav>
-    <nav id = 'customers'></nav>
-
-<div >Get Staff <br/></div>
-    <div id="staffAvail"></div>
