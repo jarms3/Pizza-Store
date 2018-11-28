@@ -53,8 +53,13 @@ var con = mysql.createConnection({
 
   router.route('/staff')
 
+<<<<<<< HEAD
     .get(function(req, res){
       con.query("SELECT  order.staffID, staff.name, COUNT(*) as orders FROM juicerSchema.order inner join juicerSchema.staff on order.staffID = staff.staffID GROUP BY order.staffID", function(err, result){
+=======
+  .get(function(req, res){
+      con.query("SELECT  order.staffID, staff.name, COUNT(*) FROM juicerSchema.order inner join juicerSchema.staff on order.staffID = staff.staffID GROUP BY order.staffID", function(err, result){
+>>>>>>> 3f4024065f2f88e42204d32999b6054f4d4fed9c
         if(err) throw err;
 
         res.json(result);
@@ -71,13 +76,15 @@ router.route('/staff/:name')
   router.route('/:order_id')
 
   .get(function(req, res) {
-    con.query("UPDATE pizza.order SET amountTotal = (SELECT SUM(price*quantity) FROM pizza.pizzas inner join pizza.pizzasinorder on pizzasinorder.pizzaName = pizzas.pizzaName WHERE orderID = " + req.params.order_id + ") WHERE orderID = " + req.params.order_id, function(err, result){
+    con.query("UPDATE juicerSchema.order SET amountTotal = (SELECT SUM(price*quantity) FROM juicerSchema.pizzas inner join juicerSchema.pizzasinorder on pizzasinorder.pizzaName = pizzas.pizzaName WHERE orderID = " + req.params.order_id + ") WHERE orderID = " + req.params.order_id, function(err, result){
+        console.log(result);
         if(err) throw err;
     });
 
-    con.query("SELECT amountTotal FROM pizza.order WHERE orderID = " + req.params.order_id, function(err, result){
+    con.query("SELECT amountTotal FROM juicerSchema.order WHERE orderID = " + req.params.order_id, function(err, result){
+        console.log(result);
         if(err) throw err;
-
+        
         res.json(result);
     });
   })

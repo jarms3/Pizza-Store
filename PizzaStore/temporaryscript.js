@@ -13,6 +13,6 @@ function updateStatus(){
 }
 
 function orderTotal(){
-    window.location='file:///Users/jackcockfield/Documents/GitHub/assignment4/PizzaStore/total.htmls';
+    window.location='file:///Users/jackcockfield/Documents/GitHub/assignment4/PizzaStore/total.html';
 
 }
