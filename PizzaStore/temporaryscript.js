@@ -14,8 +14,13 @@ function updateStatus(){
 }
 
 function orderTotal(){
-    window.location='http://localhost/PizzaStore/total.htmls';
+    window.location='http://localhost/PizzaStore/total.html';
 
+}
+
+function donezo(){
+    console.log("yep you did it");
+    window.location='http://localhost/PizzaStore/done.html';
 }
 
 function submit(){
@@ -27,8 +32,7 @@ function submit(){
     for(var i=0; i<cookiearray.length; i++){
         name = cookiearray[i].split('=')[0];
         value = cookiearray[i].split('=')[1];
-        console.log(name + value);
     }
-    console.log(input.value);
-    console.log(document.cookie);
 }
+
+

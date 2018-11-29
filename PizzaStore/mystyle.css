@@ -56,8 +56,8 @@ nav3 {
 
 }
 nav2 {
-
-    color: black;
+    background-color: black;
+    color: white;
     font-family: Helvetica;
     font-weight: 500;
     font-size: 150%;
@@ -81,6 +81,28 @@ p {
     color: black;
     font-family: Helvetica;
     font-weight: 80;
-    font-size: 150%;
+    font-size: 250%;
 
 }
+
+div {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-family: Helvetica;
+    font-weight: 500;
+    font-size: 150%;
+    width: 60%;
+
+
+}
+
+input{
+    font-family: Helvetica;
+    font-weight: 80;
+    font-size: 45%;
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+

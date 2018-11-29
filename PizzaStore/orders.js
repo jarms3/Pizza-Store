@@ -2,10 +2,15 @@ window.onload = function(){
     var orders = document.getElementById("orders");
     setInterval(function get(){
         var http = new XMLHttpRequest(); //set up the request
-        url = 'http://localhost:8080/api';
-
+        
+        var allcookies = document.cookie;
+        var cookiearray = allcookies.split(';');
+        for(var i=0; i<cookiearray.length; i++){
+            name = cookiearray[i].split('=')[0];
+            value = cookiearray[i].split('=')[1];
+        }
+        url = 'http://localhost:8080/api/orders/' + value;
         http.open('GET', url, true);
-
         http.onreadystatechange = function() {//Call a function when the state changes.
             if(http.readyState == 4 && http.status == 200) {
                 if(orders.childNodes[0] != null){

@@ -1,7 +1,7 @@
 var express    = require('express');        // call express
 var app        = express();// define our app using express
 var bodyParser = require('body-parser');
-
+var staffId;
 var mysql = require('mysql');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,6 +25,10 @@ var con = mysql.createConnection({
 
   con.query("SET FOREIGN_KEY_CHECKS=0");
 
+  con.query("SELECT COUNT(*) as count FROM pizza.staff", function(err, result){
+    staffId = result[0].count;
+  });
+
   app.use('/api', router);
 
   router.use(function(req, res, next) {
@@ -43,7 +47,20 @@ var con = mysql.createConnection({
     });   
   });
 
-  router.route('/large')
+  router.route('/orders/:store_id')
+
+  .get(function(req, res){
+    console.log(req.params.store_id);
+    if(req.params.store_id == "" || req.params.store_id == undefined){
+        res.json("Store must be defined first");
+    }
+    else{
+        con.query("SELECT * FROM pizza.order WHERE storeID = " + req.params.store_id, function(err, result){
+            if (err) throw err;
+            res.json(result);
+        }); 
+    }  
+  })
 
 
   router.route('/customers')
@@ -54,15 +71,25 @@ var con = mysql.createConnection({
       })
   })
 
-  router.route('/staff')
+  router.route('/staff/:store_id')
 
   .get(function(req, res){
-      con.query("SELECT staffID, COUNT(*) as orders FROM pizza.order GROUP BY staffID", function(err, result){
+      con.query("SELECT order.staffID, name, COUNT(*) as orders FROM pizza.order left join pizza.staff on order.staffID = staff.staffID GROUP BY order.staffID, order.storeID HAVING order.storeID = " + req.params.store_id, function(err, result){
         if(err) throw err;
 
         res.json(result);
       });
   })
+
+  .post(function(req, res){
+    staffId++;
+    console.log(req.body.name);
+    con.query("INSERT INTO pizza.staff (name, staffID, storeID) VALUES (" + req.body.name + ", " + staffId + ", " + req.params.store_id + ")", function(err, result){
+              if(err) throw err;
+    });
+      res.json("add staff");
+  });
+
 
   router.route('/:order_id')
 
@@ -77,6 +104,8 @@ var con = mysql.createConnection({
         res.json(result);
     });
   })
+
+
 
   .post(function(req, res){
       con.query("UPDATE pizza.pizzasinorder SET status = " + req.body.status + " WHERE orderID = " + req.params.order_id, function(err, result){
