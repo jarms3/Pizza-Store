@@ -63,10 +63,10 @@ var con = mysql.createConnection({
   })
 
 
-  router.route('/customers')
+  router.route('/customers/:store_id')
 
   .get(function(req, res){
-      con.query("SELECT customer.name, address.streetNum, address.streetName FROM pizza.customer inner join pizza.address on address.addressID = customer.addressID inner join pizza.order on order.customerID = customer.customerID WHERE order.status = 'PREP' OR order.status = 'COOK'", function(err, result){
+      con.query("SELECT customer.name, address.streetNum, address.streetName FROM pizza.customer inner join pizza.address on address.addressID = customer.addressID inner join pizza.order on order.customerID = customer.customerID WHERE order.status = 'PREP' OR order.status = 'COOK' AND storeID = " + req.params.store_id, function(err, result){
           res.json(result);
       })
   })
